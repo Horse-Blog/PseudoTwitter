@@ -10,7 +10,7 @@ var types = [
 ];
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
-// 	if(cookies.user !== req.body.username) {
+// 	if(req.cookies.user == undefined) {
 // 		res.redirect('/login')
 // 	}
 //
@@ -19,13 +19,19 @@ var types = [
 router.get('/', function(req, res, next) {
   // res.send('respond with a resource');
   // posts.push({name: , body:req.body})
+  console.log('something');
+  if(req.cookies.user == undefined) {
+    console.log('You are not logged in');
+  		res.redirect('/login');
+   	}
   res.render('users', { knots: messages });
 });
 
 router.post('/', function(req, res, next){
   if(req.body.message !== ""){
+  req.body.user = req.cookies.user;
   messages.unshift(req.body);
-  console.log('hey');
+  console.log(messages);
 }
   console.log(messages);
   messages.map(function(element, index, array){
