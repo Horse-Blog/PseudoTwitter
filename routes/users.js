@@ -9,12 +9,12 @@ var types = [
   {name: "flying bowline", image_url: "showoff.gif"}
 ];
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-	if(cookies.user !== req.body.username) {
-		res.redirect('/login')
-	}
-
-});
+// router.get('/', function(req, res, next) {
+// 	if(cookies.user !== req.body.username) {
+// 		res.redirect('/login')
+// 	}
+//
+// });
 
 router.get('/', function(req, res, next) {
   // res.send('respond with a resource');
@@ -23,10 +23,21 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next){
-    messages.push(req.body);
+  if(req.body.message !== ""){
+  messages.unshift(req.body);
+  console.log('hey');
+}
   console.log(messages);
-  res.render('users', { knots: messages });
+  messages.map(function(element, index, array){
+    if(index % 2 === 0 || index === 0) {
+      element.class = 'even';
+    } else {
+      element.class = 'odd';
+    }
+  });
+  console.log(messages);
 
+  res.render('users', { knots: messages });
 });
 
 
