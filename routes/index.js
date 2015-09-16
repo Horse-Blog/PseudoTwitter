@@ -7,6 +7,11 @@ router.get('/login', function(req, res, next) {
 	res.clearCookie('user');
 });
 
+router.get('/', function(req, res, next) {
+	res.render('index');
+	res.clearCookie('user');
+});
+
 router.post('/login', function(req, res, next) {
 	var name = req.body.username;
 	res.cookie('user', name)
