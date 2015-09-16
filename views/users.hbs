@@ -1,6 +1,6 @@
-<script src="/jquery/jquery.js"></script>
+<!-- <script src="/jquery/jquery.js"></script> -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script type="text/javascript" src="users.js">
+<!-- <script type="text/javascript" src="/users.js"> -->
 
 </script>
 
@@ -13,7 +13,43 @@
   {{/each}}
 </div>
 
-<form method="post" action="/users">
-    <textarea rows="20" cols="50" name="message" id="#txtEmail"></textarea>
-<input type="submit" value="Submit" id="test">
-</form>
+
+<button type="submit" id="target">Click Me</button>
+<textarea rows="4" cols="50" id="textarea">
+</textarea>
+
+<script>
+$( "#target" ).click(function() {
+  var text = $('#textarea').val();
+  console.log(typeof text);
+  $.post( "/users", {'message': text});
+});
+
+</script>
+
+
+
+<script type="text/javascript">
+
+window.onload = function() {
+
+function refreshPosts () {
+  $.getJSON("/posts", function (data) {
+    var posts = data.posts;
+    $("div").remove();
+  posts.forEach(function(element, index, array){
+    $div = $('<div>', {class: element.class,
+                      id: element.user
+                      }).text(element.message);
+    console.log(data);
+    $div.appendTo('body');
+  });
+
+  });
+}
+window.setInterval(refreshPosts, 10000);
+};
+</script>
+
+<!-- //router.get('/posts.json', )
+//res.json({posts: req.app.locals.posts}) -->
