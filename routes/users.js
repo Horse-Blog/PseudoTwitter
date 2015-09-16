@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
   // posts.push({name: , body:req.body})
   console.log('something');
   if(req.cookies.user === undefined) {
-    console.log('You are not logged in');
+    //console.log('You are not logged in');
   		res.redirect('/login');
    	}else{
   res.render('users', { knots: messages });
