@@ -4,21 +4,12 @@ var router = express.Router();
 
 var messages = [];
 /* GET users listing. */
-// router.get('/', function(req, res, next) {
-// 	if(req.cookies.user == undefined) {
-// 		res.redirect('/login')
-// 	}
-//
-// });
 
 router.get('/', function(req, res, next) {
-  // res.send('respond with a resource');
-  // posts.push({name: , body:req.body})
   console.log('something');
   if(req.cookies.user === undefined) {
-    //console.log('You are not logged in');
   		res.redirect('/login');
-   	}else{
+   	} else {
   res.render('users', { knots: messages });
 }
 });
@@ -34,8 +25,15 @@ router.post('/', function(req, res, next){
     } else {
       element.class = 'odd';
     }
+
+    if(element.user === req.cookies.user) {
+      element.type = "mine"
+    } else {
+      element.type = "friend"
+    }
+
   });
-  console.log(messages);
+  console.log(req.app.locals.messages);
 
   res.render('users', { knots: req.app.locals.messages });
 });

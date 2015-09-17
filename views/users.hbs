@@ -21,8 +21,9 @@
 <script>
 $( "#target" ).click(function() {
   var text = $('#textarea').val();
-  console.log(typeof text);
+  //console.log(typeof text);
   $.post( "/users", {'message': text});
+
 });
 
 </script>
@@ -41,8 +42,9 @@ function refreshPosts () {
     $div = $('<div>', {class: element.class,
                       id: element.user
                       }).text(element.message);
-    console.log(data);
+    //console.log(data);
     $div.appendTo('body');
+
   });
 
   });
@@ -51,5 +53,8 @@ window.setInterval(refreshPosts, 10000);
 };
 </script>
 
+
+
+<button type="button" onclick="location.href='/profile'" id="profile">profile</button>
 <!-- //router.get('/posts.json', )
 //res.json({posts: req.app.locals.posts}) -->
