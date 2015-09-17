@@ -19,4 +19,10 @@ router.post('/login', function(req, res, next) {
 router.get('/posts', function(req, res){
 	res.json({posts: req.app.locals.messages});
 });
+
+router.get('/profile', function(req, res) {
+	res.json({posts: req.app.locals.messages});
+})
+
+
 module.exports = router;
