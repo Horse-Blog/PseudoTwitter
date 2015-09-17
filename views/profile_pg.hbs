@@ -8,13 +8,24 @@ function refreshPosts () {
   $.getJSON("/profile", function (data) {
     var posts = data.posts;
     var userArray = [];
-    //console.log(posts)
-  	posts.forEach(function(element, index, array){
-    	if(element.user === req.cookies.user) {
-    		userArray.push(element.user)
-    	}
-    	console.log(userArray)
+    
+    function getCookie(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    var name = '';
+      if (parts.length == 2) 
+        return parts.pop().split(";").shift();
+      }
+
+      posts.forEach(function(element, index, array){
+        if(element.user === getCookie('user')) {
+          userArray.push(posts[index])
+        }
+        console.log(userArray)
+
+        }); 
 
   });
 </script>
 
+req.apps.local.messges.post.user

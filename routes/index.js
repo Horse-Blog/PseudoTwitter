@@ -2,27 +2,66 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
+
+
+router.get('/login', function(req, res, next) {
+	res.clearCookie('user')
+	res.render('index')
+});
+
 router.get('/', function(req, res, next) {
 	res.redirect('/login');
 });
 
-router.get('/login', function(req, res, next) {
-	res.render('index')
-});
-
-router.post('/login', function(req, res, next) {
+router.post('/', function(req, res, next) {
 	var name = req.body.username;
 	res.cookie('user', name)
-	res.render('users')
+
+	if(name !== "") {
+  		res.render('users')
+   	} else {
+   		res.redirect('/login')
+   	}
+	
 });
 
 router.get('/posts', function(req, res){
 	res.json({posts: req.app.locals.messages});
 });
 
-router.get('/profile', function(req, res) {
-	res.json({posts: req.app.locals.messages});
+router.post('/profile', function(req, res) {
+	req.app.locals.posts.messages = req.params.user
+	res.render('profile_pg')
 })
+
+//users.js routes
+
+var messages = [];
+router.post('/users', function(req, res, next){
+  //console.log('this is users')
+  if(req.body.message !== ""){
+  req.body.user = req.cookies.user;
+  req.app.locals.messages.unshift(req.body);
+}
+  req.app.locals.messages.map(function(element, index, array){
+    if(index % 2 === 0 || index === 0) {
+      element.class = 'even';
+    } else {
+      element.class = 'odd';
+    }
+
+    if(element.user === req.cookies.user) {
+      element.type = "mine"
+    } else {
+      element.type = "friend"
+    }
+
+  });
+  console.log(req.app.locals.messages);
+
+  res.render('users', { knots: req.app.locals.messages });
+});
+
 
 
 module.exports = router;
