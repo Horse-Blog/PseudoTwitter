@@ -1,13 +1,12 @@
 window.onload = function() {
 
-  $( "#target" ).click(function() {
-    var text = $('#textarea').val();
-    //console.log(typeof text);
-    $.post( "/users", {'message': text});
 
-  });
+$( "#target" ).click(function() {
+  var text = $('#textarea').val();
+  //console.log(typeof text);
+  $.post( "/users", {'message': text});
 
-
+});
 
 function refreshPosts () {
   $.getJSON("/posts", function (data) {
@@ -19,6 +18,9 @@ function refreshPosts () {
   function getCookie(name) {
     var value = "; " + document.cookie;
     var parts = value.split("; " + name + "=");
+
+    var name = '';
+
     if (parts.length == 2) return parts.pop().split(";").shift();
   }
 
@@ -47,16 +49,21 @@ function refreshPosts () {
   if(element.user == getCookie('user')){ $button.appendTo($div);}
 
   $div.appendTo('body');
+
   $(".hoverbutton").click(function(){
     $.post( "/dele", {'id': this.id});
   });
+
+
+  //console.log(getCookie('user'));
+  $span.appendTo($div);
+
+  $div.appendTo('body');
 
   });
 
   });
 }
-
-
 
 
 window.setInterval(refreshPosts, 5000);
