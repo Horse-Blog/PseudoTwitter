@@ -43,10 +43,8 @@ function refreshPosts () {
     $button = $('<button>', { type: 'button',
                               class: "hoverbutton",
                               id: index
-
-                            });
+                            }).text('x');
     $button.click(function(){
-        console.log("click");
         $.post( "/dele", {'id': this.id});
     });
 
