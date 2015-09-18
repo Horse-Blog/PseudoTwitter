@@ -43,22 +43,20 @@ function refreshPosts () {
     $button = $('<button>', { type: 'button',
                               class: "hoverbutton",
                               id: index
+
                             });
+    $button.click(function(){
+        console.log("click");
+        $.post( "/dele", {'id': this.id});
+    });
+
 
   $span.appendTo($div);
+
   if(element.user == getCookie('user')){ $button.appendTo($div);}
 
   $div.appendTo('body');
 
-  $(".hoverbutton").click(function(){
-    $.post( "/dele", {'id': this.id});
-  });
-
-
-  //console.log(getCookie('user'));
-  $span.appendTo($div);
-
-  $div.appendTo('body');
 
   });
 
