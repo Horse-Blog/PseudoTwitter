@@ -43,10 +43,16 @@ $.getJSON("/friendInfo", function(data) {
 	var $ulFrnd = $('<ul>');
     $ulFrnd.appendTo($divFrnd);
 
+    var arr = [];
     frndProfile.forEach(function(element, index, array) {
-    	var $liFrnd = $('<li>');
-    	$liFrnd.appendTo($ulFrnd);
-    	$liFrnd.html(element.user);
+    	arr.push(element.user)
     });
+
+    var friendArray = (_.union(arr));
+	friendArray.forEach(function(element, index, array) {
+		var $liFrnd = $('<li>');
+		$liFrnd.appendTo($ulFrnd);
+		$liFrnd.html(element);	
+	});
 
 });
