@@ -1,31 +1,4 @@
-<script src="/jquery/jquery.js"></script>
-
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js'></script>
+<script src="/profile_build.js"></script>
 <button type="button" onclick="location.href='/login'" id="signout">Sign Out</button>
-
-<script>
-
-function refreshPosts () {
-  $.getJSON("/profile", function (data) {
-    var posts = data.posts;
-    var userArray = [];
-    
-    function getCookie(name) {
-    var value = "; " + document.cookie;
-    var parts = value.split("; " + name + "=");
-    var name = '';
-      if (parts.length == 2) 
-        return parts.pop().split(";").shift();
-      }
-
-      posts.forEach(function(element, index, array){
-        if(element.user === getCookie('user')) {
-          userArray.push(posts[index])
-        }
-        console.log(userArray)
-
-        }); 
-
-  });
-</script>
-
-req.apps.local.messges.post.user

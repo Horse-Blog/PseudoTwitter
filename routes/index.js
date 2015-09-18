@@ -29,16 +29,36 @@ router.get('/posts', function(req, res){
 	res.json({posts: req.app.locals.messages});
 });
 
-router.post('/profile', function(req, res) {
-	req.app.locals.posts.messages = req.params.user
-	res.render('profile_pg')
+
+router.get('/profile', function(req, res) {
+  res.render('profile_pg')
+})
+
+router.get('/profileInfo', function(req, res) {
+  var profileObj = [];
+  for(var i = 0; i < req.app.locals.messages.length; i ++) {
+    if(req.app.locals.messages[i].user === req.cookies.user) {
+      profileObj.push(req.app.locals.messages[i])
+    } 
+  }
+  res.json({profile: profileObj})
+})
+
+router.get('/friendInfo', function(req, res) {
+  var frndObj = [];
+  for(var i = 0; i < req.app.locals.messages.length; i ++) {
+    if(req.app.locals.messages[i].user !== req.cookies.user) {
+      frndObj.push(req.app.locals.messages[i])
+    } 
+  }
+  res.json({frndProfile: frndObj})
 })
 
 //users.js routes
 
 var messages = [];
+
 router.post('/users', function(req, res, next){
-  //console.log('this is users')
   if(req.body.message !== ""){
   req.body.user = req.cookies.user;
   req.app.locals.messages.unshift(req.body);
@@ -57,7 +77,7 @@ router.post('/users', function(req, res, next){
     }
 
   });
-  console.log(req.app.locals.messages);
+  //console.log(req.app.locals.messages);
 
   res.render('users', { knots: req.app.locals.messages });
 });
