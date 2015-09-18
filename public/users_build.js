@@ -5,7 +5,7 @@ $( "#target" ).click(function() {
   var text = $('#textarea').val();
   //console.log(typeof text);
   $.post( "/users", {'message': text});
-
+  $('textarea#textarea').val('');
 });
 
 function refreshPosts () {
