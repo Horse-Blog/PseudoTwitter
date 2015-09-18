@@ -84,10 +84,7 @@ router.post('/users', function(req, res, next){
 
 router.post('/dele', function(req,res, next){
 	var num = req.body.id;
-	console.log(req.app.locals.messages);
-	// console.log(req.body.id);
-	req.app.locals.messages[num].message = "removed";
-	req.app.locals.messages[num].class = "deleted";
+	req.app.locals.messages.splice(num, 1);
 
 });
 
